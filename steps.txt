@@ -1,0 +1,19 @@
+
+
+   (1)
+load data
+    |
+    |
+    |
+    v    
+         (2)
+    pre-processing
+         |
+         |
+         |
+         v
+                (3)
+         implement knn module
+            - distance computation
+            - select the k nearest observations
+            - classify
