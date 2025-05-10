@@ -37,4 +37,4 @@ Summary Statistics:
 
 licence: This dataset is licensed under a [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode) (CC BY 4.0) license.
 
-from: [Iris dataset](https://archive.ics.uci.edu/dataset/53/iris)
+from: [Iris Plants Database](https://archive.ics.uci.edu/dataset/53/iris)
