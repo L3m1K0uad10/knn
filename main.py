@@ -8,12 +8,17 @@ from knn import Knn
 df = pd.read_csv("iris/iris.csv")
 data = df.to_numpy()
 
+# preprocessing: shuffling the data
+np.random.shuffle(data)
+print(type(data))
+
 rows, cols = data.shape
 
-# splitting label from futures
+# preprocessing: splitting label from futures
 labels = data[0:rows + 1, cols - 1:]
 data = data[0:rows + 1, 0:cols - 1]
 
+# preprocessing:
 # training model data and testing model data
 # let's reserve 2 observations only for testing
 test_labels = np.array([labels[0], labels[rows - 1]])
@@ -28,6 +33,6 @@ data = np.delete(data, rows - 1 - 1, axis = 0) # retrieve one more because of ro
 """ select the value of k such that k > no_classes """
 model = Knn(data, labels, test_data[0], 1)
 distances = model.compute()
-#print(distances)
+print(distances)
 nn = model.classify()
 print("\n", nn)

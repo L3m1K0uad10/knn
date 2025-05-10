@@ -57,37 +57,25 @@ class Knn:
         distances = self.compute()
         matches = np.where((self._data == self._initial).all(axis=1))[0]
         
+        nearest_neighbors = {}
+
         if matches.size > 0: 
             idx = matches[0] 
-            new_distances = np.delete(distances, idx, axis = 0)
-            min_ = np.min(new_distances)
+            new_distances = np.delete(distances, idx, axis = 0)    
 
-            nearest_neighbors = {}
-            count = 0
-            for i, row in enumerate(new_distances):
-                if row[0] <= min_:
-                    nearest_neighbors[i] = [float(row[0]), str(self._labels[i][0])]
-                    count += 1
-                    new_distances = np.delete(new_distances, i, axis = 0)
-                    min_ = np.min(new_distances)
-                if count == self._k:
-                    break
+            for i in range(self._k):
+                min_ = np.min(new_distances)
+                matches = np.where((new_distances == min_).all(axis = 1))[0]
+                idx = matches[0]
+                nearest_neighbors[idx] = [min_, str(self._labels[idx][0])]
+                new_distances = np.delete(new_distances, idx, axis = 0)
         else:
-            min_ = np.min(distances)
-
-            nearest_neighbors = {}
-            count = 0
-            for i, row in enumerate(distances):
-                print("---", row[0], "---", i)
-                if row[0] <= min_:
-                    print("+++", row[0])
-                    nearest_neighbors[i] = [float(row[0]), str(self._labels[i][0])]
-                    count += 1
-                    distances = np.delete(distances, i, axis = 0)
-                    min_ = np.min(distances)
-                    print(min_)
-                if count == self._k:
-                    break
+            for i in range(self._k):
+                min_ = np.min(distances)
+                matches = np.where((distances == min_).all(axis = 1))[0]
+                idx = matches[0]
+                nearest_neighbors[idx] = [min_, str(self._labels[idx][0])]
+                distances = np.delete(distances, idx, axis = 0)
 
         nearest_neighbors_dict = nearest_neighbors
         return nearest_neighbors_dict
